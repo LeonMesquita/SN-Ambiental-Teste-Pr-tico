@@ -1,7 +1,6 @@
 package com.api.company_manager.controllers;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.api.company_manager.dtos.AddressDto;
 import com.api.company_manager.models.AddressModel;
 import com.api.company_manager.services.AddressService;
@@ -48,18 +46,36 @@ public class AddressController {
         Optional<AddressModel> address = service.findById(id);
 
         if (!address.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Parking Spot not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Address not found");
         }
         return ResponseEntity.status(HttpStatus.OK).body(address.get());
     }
 
     @PutMapping("/{id}")
-    public String updateAddress() {
-        return null;
+    public ResponseEntity<Object> updateAddress(
+        @PathVariable(value = "id") Long id,
+        @RequestBody @Valid AddressDto addressDto
+    ) {
+        Optional<AddressModel> address = service.findById(id);
+
+        if (!address.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Address not found");
+        }
+        var addressModel = new AddressModel();
+        BeanUtils.copyProperties(addressDto, addressModel);
+        addressModel.setId(id);
+        return ResponseEntity.status(HttpStatus.OK).body(service.save(addressModel));
     }
 
     @DeleteMapping("/{id}")
-    public String deleteAddress() {
-        return null;
+    public ResponseEntity<Object> deleteAddress(@PathVariable(value = "id") Long id) {
+        Optional<AddressModel> address = service.findById(id);
+
+        if (!address.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Address not found");
+        }
+        service.delete(address.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Address deleted successfully");
     }
+
 }
