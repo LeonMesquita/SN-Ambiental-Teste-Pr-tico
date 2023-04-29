@@ -12,7 +12,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-    static final String BASE_PATH = "/api/**";
+    static final String BASE_PATH = "/api/address/";
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -20,9 +20,9 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.GET, BASE_PATH).permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/address/").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/address/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/address/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, BASE_PATH).hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, BASE_PATH).hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, BASE_PATH).hasRole("ADMIN")
         .anyRequest().authenticated();
 
         return http.build();
