@@ -15,7 +15,7 @@ public class AddressModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "vLogradouro", nullable = false, length = 80)
+    @Column(nullable = false, length = 80)
     private String vLogradouro;
 
     @Column(nullable = false, length = 50)
