@@ -28,5 +28,5 @@ public class AddressModel {
     private String vNumero;
 
     @Column(nullable = false, length = 2)
-    private char cUF;
+    private String cUF;
 }
