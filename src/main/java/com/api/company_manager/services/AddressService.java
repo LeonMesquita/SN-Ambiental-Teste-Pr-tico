@@ -1,15 +1,10 @@
 package com.api.company_manager.services;
-
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.api.company_manager.dtos.AddressDto;
 import com.api.company_manager.models.AddressModel;
 import com.api.company_manager.repositories.AddressRepository;
-
 import jakarta.transaction.Transactional;
 
 @Service
@@ -24,11 +19,11 @@ public class AddressService {
     }
 
     public List<AddressModel> findAll() {
-        return null;
+        return repository.findAll();
     }
 
-    public Optional<AddressModel> findById() {
-        return null;
+    public Optional<AddressModel> findById(Long id) {
+        return repository.findById(id);
     }
 
     @Transactional

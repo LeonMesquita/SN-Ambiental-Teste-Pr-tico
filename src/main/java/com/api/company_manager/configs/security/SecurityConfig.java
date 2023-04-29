@@ -12,24 +12,24 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-    static final String BASE_URL = "/api/";
+    static final String BASE_PATH = "/api/**";
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.httpBasic(withDefaults())
         .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(authz -> authz
-                        .requestMatchers(HttpMethod.GET, BASE_URL).permitAll()
-                        .requestMatchers(HttpMethod.POST, BASE_URL).hasRole("USER")
-                        .requestMatchers(HttpMethod.PUT, BASE_URL).hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, BASE_URL).hasRole("ADMIN")
-                        .anyRequest().authenticated());
+        .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.GET, BASE_PATH).permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/address/").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/api/address/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/api/address/**").hasRole("ADMIN")
+        .anyRequest().authenticated();
 
         return http.build();
     }
-    
+
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
