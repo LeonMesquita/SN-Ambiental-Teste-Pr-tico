@@ -20,16 +20,14 @@ import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/address")
+@RequestMapping("/api/address")
 public class AddressController {
 
     @Autowired
     private AddressService service;
     
     @PostMapping
-    public ResponseEntity<Object> createAddress(@RequestBody AddressDto addressDto) {
-        // System.out.println(addressDto);
-        // return null;
+    public ResponseEntity<Object> createAddress(@RequestBody @Valid AddressDto addressDto) {
         var addressModel = new AddressModel();
         BeanUtils.copyProperties(addressDto, addressModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(addressModel));
