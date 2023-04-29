@@ -20,20 +20,20 @@ public class CompanyModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length = 80, unique = true)
-    private String vNome_fantasia;
+    @Column(nullable = false, length = 80, unique = true, name = "vNome_fantasia")
+    private String nome_fantasia;
 
-    @Column(nullable = false, length = 80, unique = true)
-    private String vNome_razao_social;
+    @Column(nullable = false, length = 80, unique = true, name = "vNome_razao_social")
+    private String nome_razao_social;
 
-    @Column(nullable = false, length = 14, unique = true)
-    private String vCnpj;
+    @Column(nullable = false, length = 14, unique = true, name = "vCnpj")
+    private String cnpj;
 
-    @Column(nullable = false, length = 10, unique = true)
-    private String vEmail;
+    @Column(nullable = false, length = 10, unique = true, name = "vEmail")
+    private String email;
 
-    @Column(nullable = false, length = 200)
-    private String vObservacao;
+    @Column(nullable = false, length = 200, name = "vObservacao")
+    private String observacao;
 
     @OneToOne
     @JoinColumn(name = "iCod_endereco", referencedColumnName = "id")

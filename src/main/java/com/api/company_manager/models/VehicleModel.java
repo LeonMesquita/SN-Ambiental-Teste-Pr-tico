@@ -15,12 +15,12 @@ public class VehicleModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length = 35)
-    private String vDesc_veiculo;
+    @Column(nullable = false, length = 35, name = "vDesc_veiculo")
+    private String desc_veiculo;
 
-    @Column(nullable = false, length = 7)
-    private String cPlaca;
+    @Column(nullable = false, length = 7, name = "cPlaca")
+    private String placa;
 
-    @Column(nullable = false)
-    private double nValor;
+    @Column(nullable = false, name = "nValor")
+    private double valor;
 }

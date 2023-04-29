@@ -18,18 +18,18 @@ public class AddressModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false, length = 80)
-    private String vLogradouro;
+    @Column(nullable = false, length = 80, name = "vLogradouro")
+    private String logradouro;
 
-    @Column(nullable = false, length = 50)
-    private String vComplemento;
+    @Column(nullable = false, length = 50, name = "vComplemento")
+    private String complemento;
 
-    @Column(nullable = false, length = 40)
-    private String vBairro;
+    @Column(nullable = false, length = 40, name = "vBairro")
+    private String bairro;
 
-    @Column(nullable = false, length = 10)
-    private String vNumero;
+    @Column(nullable = false, length = 10, name = "vNumero")
+    private String numero;
 
-    @Column(nullable = false, length = 2)
-    private String cUF;
+    @Column(nullable = false, length = 2, name = "cUf")
+    private String uf;
 }

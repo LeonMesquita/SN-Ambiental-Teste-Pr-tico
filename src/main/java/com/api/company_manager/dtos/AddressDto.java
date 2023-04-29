@@ -8,23 +8,23 @@ import lombok.Data;
 public class AddressDto {
     @NotBlank
     @Size(max = 80)
-    private String vLogradouro;
+    private String logradouro;
 
     @NotBlank
     @Size(max = 50)
-    private String vComplemento;
+    private String complemento;
 
     @NotBlank
     @Size(max = 40)
-    private String vBairro;
+    private String bairro;
 
     @NotBlank
     @Size(max = 10)
-    private String vNumero;
+    private String numero;
 
     @NotBlank
     @Size(min = 2)
     @Size(max = 2)
-    private String cUF;
+    private String uf;
 
 }
