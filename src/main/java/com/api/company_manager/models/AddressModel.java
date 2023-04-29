@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "address")
+@Table(name = "endereco")
 public class AddressModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
