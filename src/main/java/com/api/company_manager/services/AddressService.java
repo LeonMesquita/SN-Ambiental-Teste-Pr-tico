@@ -1,8 +1,9 @@
 package com.api.company_manager.services;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import com.api.company_manager.models.AddressModel;
 import com.api.company_manager.repositories.AddressRepository;
 import jakarta.transaction.Transactional;
@@ -22,12 +23,15 @@ public class AddressService {
         return repository.findAll();
     }
 
-    public Optional<AddressModel> findById(Long id) {
-        return repository.findById(id);
+    public AddressModel findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> 
+        new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
     }
 
     @Transactional
-    public void delete() {
+    public void delete(AddressModel addressModel) {
+        repository.delete(addressModel);
     }
 
 }

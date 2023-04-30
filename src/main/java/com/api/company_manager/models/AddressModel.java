@@ -16,7 +16,7 @@ public class AddressModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
 
     @Column(nullable = false, length = 80, name = "vLogradouro")
     private String logradouro;

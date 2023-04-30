@@ -1,6 +1,5 @@
 package com.api.company_manager.controllers;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,12 +42,8 @@ public class AddressController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getAddressById(@PathVariable(value = "id") Long id) {
-        Optional<AddressModel> address = service.findById(id);
-
-        if (!address.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Address not found");
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(address.get());
+        AddressModel address = service.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(address);
     }
 
     @PutMapping("/{id}")
@@ -56,25 +51,19 @@ public class AddressController {
         @PathVariable(value = "id") Long id,
         @RequestBody @Valid AddressDto addressDto
     ) {
-        Optional<AddressModel> address = service.findById(id);
-
-        if (!address.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Address not found");
-        }
+        AddressModel address = service.findById(id);
+        
         var addressModel = new AddressModel();
         BeanUtils.copyProperties(addressDto, addressModel);
-        addressModel.setId(id);
+        addressModel.setId(address.id);
         return ResponseEntity.status(HttpStatus.OK).body(service.save(addressModel));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteAddress(@PathVariable(value = "id") Long id) {
-        Optional<AddressModel> address = service.findById(id);
+        AddressModel address = service.findById(id);
 
-        if (!address.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Address not found");
-        }
-        service.delete(address.get());
+        service.delete(address);
         return ResponseEntity.status(HttpStatus.OK).body("Address deleted successfully");
     }
 
