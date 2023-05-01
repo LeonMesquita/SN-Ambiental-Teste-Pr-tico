@@ -1,5 +1,6 @@
 package com.api.company_manager.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,10 @@ public class VehicleService {
 
     public boolean existsByPlate(String plate) {
         Optional<VehicleModel> car = repository.findByPlaca(plate);
-
         return car != null;
+    }
+
+    public List<VehicleModel> findAll() {
+        return repository.findAll();
     }
 }
