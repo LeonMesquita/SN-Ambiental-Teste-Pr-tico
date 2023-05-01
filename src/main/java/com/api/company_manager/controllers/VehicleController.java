@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +48,19 @@ public class VehicleController {
     public ResponseEntity<Object> getVehicleById(@PathVariable(value = "id") Integer id) {
         VehicleModel vehicle = service.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(vehicle);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateVehicle(
+        @PathVariable(value = "id") Integer id,
+        @RequestBody @Valid VehicleDto vehicleDto
+    ) {
+        VehicleModel vehicle = service.findById(id);
+        
+        var vehicleModel = new VehicleModel();
+        BeanUtils.copyProperties(vehicleDto, vehicleModel);
+        vehicleModel.setId(vehicle.getId());
+        return ResponseEntity.status(HttpStatus.OK).body(service.save(vehicleModel));
     }
 
 }
