@@ -57,6 +57,12 @@ public class VehicleController {
         @RequestBody @Valid VehicleDto vehicleDto
     ) {
         VehicleModel vehicle = service.findById(id);
+
+        Optional<VehicleModel> existingVehicle = service.findByPlate(vehicleDto.getPlaca());
+
+        if (existingVehicle.isPresent() && !existingVehicle.get().getPlaca().equals(vehicle.getPlaca())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("There is already a car with this license plate");
+        }
         
         var vehicleModel = new VehicleModel();
         BeanUtils.copyProperties(vehicleDto, vehicleModel);
