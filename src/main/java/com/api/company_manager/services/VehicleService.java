@@ -37,4 +37,8 @@ public class VehicleService {
         .orElseThrow(() -> 
         new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehicle not found"));
     }
+    
+    public void delete(VehicleModel vehicle) {
+        repository.delete(vehicle);
+    }
 }
