@@ -25,6 +25,10 @@ public class VehicleController {
 
     @PostMapping
     public ResponseEntity<Object> createVehicle(@RequestBody @Valid VehicleDto vehicleDto) {
+        boolean exists = service.existsByPlate(vehicleDto.getPlaca());
+        if (exists) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("There is already a car with this license plate");
+        }
         var vehicleModel = new VehicleModel();
         BeanUtils.copyProperties(vehicleDto, vehicleModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(vehicleModel));
