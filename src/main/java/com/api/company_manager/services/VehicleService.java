@@ -24,9 +24,8 @@ public class VehicleService {
         return repository.save(vehicleModel);
     }
 
-    public boolean existsByPlate(String plate) {
-        Optional<VehicleModel> vehicle = repository.findByPlaca(plate);
-        return vehicle != null;
+    public Optional<VehicleModel> findByPlate(String plate) {
+        return repository.findByPlaca(plate);
     }
 
     public List<VehicleModel> findAll() {

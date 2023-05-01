@@ -1,6 +1,7 @@
 package com.api.company_manager.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class VehicleController {
 
     @PostMapping
     public ResponseEntity<Object> createVehicle(@RequestBody @Valid VehicleDto vehicleDto) {
-        boolean exists = service.existsByPlate(vehicleDto.getPlaca());
-        if (exists) {
+        Optional<VehicleModel> existingVehicle = service.findByPlate(vehicleDto.getPlaca());
+        if (existingVehicle.isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("There is already a car with this license plate");
         }
         var vehicleModel = new VehicleModel();
