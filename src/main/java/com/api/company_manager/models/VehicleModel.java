@@ -13,12 +13,12 @@ import lombok.Data;
 public class VehicleModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, length = 35, name = "vDesc_veiculo")
     private String desc_veiculo;
 
-    @Column(nullable = false, length = 7, name = "cPlaca")
+    @Column(nullable = false, length = 7, name = "cPlaca", unique = true)
     private String placa;
 
     @Column(nullable = false, name = "nValor")

@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.api.company_manager.models.CompanyModel;
 
-public interface CompanyRepository extends JpaRepository<CompanyModel, Long>{
+public interface CompanyRepository extends JpaRepository<CompanyModel, Integer>{
     
 }

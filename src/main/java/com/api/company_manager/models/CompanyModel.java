@@ -18,7 +18,7 @@ import lombok.Data;
 public class CompanyModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, length = 80, unique = true, name = "vNome_fantasia")
     private String nome_fantasia;

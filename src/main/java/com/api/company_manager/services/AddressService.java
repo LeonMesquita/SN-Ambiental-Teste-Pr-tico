@@ -23,7 +23,7 @@ public class AddressService {
         return repository.findAll();
     }
 
-    public AddressModel findById(Long id) {
+    public AddressModel findById(Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> 
         new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));

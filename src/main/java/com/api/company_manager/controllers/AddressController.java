@@ -41,14 +41,14 @@ public class AddressController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getAddressById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Object> getAddressById(@PathVariable(value = "id") Integer id) {
         AddressModel address = service.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(address);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateAddress(
-        @PathVariable(value = "id") Long id,
+        @PathVariable(value = "id") Integer id,
         @RequestBody @Valid AddressDto addressDto
     ) {
         AddressModel address = service.findById(id);
@@ -60,7 +60,7 @@ public class AddressController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteAddress(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Object> deleteAddress(@PathVariable(value = "id") Integer id) {
         AddressModel address = service.findById(id);
 
         service.delete(address);
