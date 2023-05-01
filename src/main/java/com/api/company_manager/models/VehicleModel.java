@@ -12,7 +12,7 @@ import lombok.Data;
 @Table(name = "veiculo")
 public class VehicleModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false, length = 35, name = "vDesc_veiculo")

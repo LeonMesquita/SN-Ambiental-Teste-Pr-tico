@@ -32,6 +32,10 @@ public class VehicleService {
         return repository.findAll();
     }
 
+    public List<VehicleModel> findAllByIds(List<Integer> ids) {
+        return repository.findByIdIn(ids);
+    }
+
     public VehicleModel findById(Integer id) {
         return repository.findById(id)
         .orElseThrow(() -> 
