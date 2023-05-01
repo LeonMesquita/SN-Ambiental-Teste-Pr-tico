@@ -23,7 +23,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, BASE_PATH).hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, BASE_PATH).hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, BASE_PATH).hasRole("ADMIN")
-        .anyRequest().authenticated();
+        .anyRequest().permitAll();
 
         return http.build();
     }
