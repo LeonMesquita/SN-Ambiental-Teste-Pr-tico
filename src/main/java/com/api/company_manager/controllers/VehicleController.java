@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,4 +42,11 @@ public class VehicleController {
     public ResponseEntity<List<VehicleModel>> getAllVehicles() {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getVehicleById(@PathVariable(value = "id") Integer id) {
+        VehicleModel vehicle = service.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(vehicle);
+    }
+
 }
