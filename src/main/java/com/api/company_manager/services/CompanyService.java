@@ -3,7 +3,10 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.api.company_manager.dtos.CompanyDto;
 import com.api.company_manager.models.AddressModel;
 import com.api.company_manager.models.CompanyModel;
@@ -50,6 +53,12 @@ public class CompanyService {
 
     public List<CompanyModel> findAll() {
         return repository.findAll();
+    }
+
+    public CompanyModel findById(Integer id) {
+        return repository.findById(id)
+        .orElseThrow(() -> 
+        new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found"));
     }
 
 }
