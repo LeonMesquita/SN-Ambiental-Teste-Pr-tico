@@ -48,4 +48,8 @@ public class CompanyService {
         return null;
     }
 
+    public List<CompanyModel> findAll() {
+        return repository.findAll();
+    }
+
 }
