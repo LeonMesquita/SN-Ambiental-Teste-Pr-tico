@@ -20,10 +20,10 @@ public class CompanyModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 80, unique = true, name = "vNome_fantasia")
+    @Column(nullable = false, length = 80, name = "vNome_fantasia")
     private String nome_fantasia;
 
-    @Column(nullable = false, length = 80, unique = true, name = "vNome_razao_social")
+    @Column(nullable = false, length = 80, name = "vNome_razao_social")
     private String nome_razao_social;
 
     @Column(nullable = false, length = 14, unique = true, name = "vCnpj")

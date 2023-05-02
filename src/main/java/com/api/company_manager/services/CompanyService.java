@@ -1,11 +1,9 @@
 package com.api.company_manager.services;
-
 import java.util.List;
-
+import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.api.company_manager.dtos.CompanyDto;
 import com.api.company_manager.models.AddressModel;
 import com.api.company_manager.models.CompanyModel;
@@ -35,6 +33,19 @@ public class CompanyService {
         companyModel.setEndereco(address);
         companyModel.setVeiculos(vehicles);
         return repository.save(companyModel);
+    }
+
+    public String checkCompanyByUniqueFields(CompanyDto companyDto) {
+        Optional<CompanyModel> company;
+        company = repository.findByCnpj(companyDto.getCnpj());
+        if (company.isPresent()) {
+            return "Conflict: There is already a company with this CNPJ";
+        }
+        company = repository.findByEmail(companyDto.getEmail());
+        if (company.isPresent()) {
+            return "Conflict: There is already a company with this E-mail";
+        }
+        return null;
     }
 
 }
