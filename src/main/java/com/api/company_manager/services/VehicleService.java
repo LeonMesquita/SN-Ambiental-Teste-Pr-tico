@@ -42,6 +42,7 @@ public class VehicleService {
         new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehicle not found"));
     }
     
+    @Transactional
     public void delete(VehicleModel vehicle) {
         repository.delete(vehicle);
     }

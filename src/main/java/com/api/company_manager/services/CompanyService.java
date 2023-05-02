@@ -78,4 +78,9 @@ public class CompanyService {
         return repository.save(companyModel);
     }
 
+    @Transactional
+    public void delete(CompanyModel company) {
+        repository.delete(company);
+    }
+
 }
