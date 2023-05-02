@@ -27,20 +27,8 @@ public class CompanyController {
     @Autowired
     private CompanyService service;
 
-    @Autowired
-    private AddressService addressService;
-
-    @Autowired
-    private VehicleService vehicleService;
-
     @PostMapping
     public ResponseEntity<Object> createCompany(@RequestBody @Valid CompanyDto companyDto) {
-        AddressModel address = addressService.findById(companyDto.getId_endereco());
-        List<VehicleModel> vehicles = vehicleService.findAllByIds(companyDto.getVehicles_ids());
-        var companyModel = new CompanyModel();
-        BeanUtils.copyProperties(companyDto, companyModel);
-        companyModel.setEndereco(address);
-        companyModel.setVeiculos(vehicles);
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(companyModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(companyDto));
     }
 }
