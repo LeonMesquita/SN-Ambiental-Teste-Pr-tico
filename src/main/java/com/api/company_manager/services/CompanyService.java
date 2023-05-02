@@ -57,8 +57,25 @@ public class CompanyService {
 
     public CompanyModel findById(Integer id) {
         return repository.findById(id)
-        .orElseThrow(() -> 
-        new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found"));
+    }
+
+    public Optional<CompanyModel> findByCnpj(String cnpj) {
+        return repository.findByCnpj(cnpj);
+    }
+
+    public Optional<CompanyModel> findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+    
+    public CompanyModel update(CompanyDto companyDto, CompanyModel company) {
+        List<VehicleModel> vehicles = vehicleService.findAllByIds(companyDto.getVehicles_ids());
+        var companyModel = new CompanyModel();
+        BeanUtils.copyProperties(companyDto, companyModel);
+        companyModel.setId(company.getId());
+        companyModel.setVeiculos(vehicles);
+
+        return repository.save(companyModel);
     }
 
 }
