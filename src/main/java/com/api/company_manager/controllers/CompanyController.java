@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.api.company_manager.dtos.CompanyDto;
 import com.api.company_manager.models.CompanyModel;
@@ -53,6 +54,27 @@ public class CompanyController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Company not found");
         }
         return ResponseEntity.status(HttpStatus.OK).body(company);
+    }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<Object> getCompanyByIdOrCnpj(@RequestParam(required = false) Integer id, @RequestParam(required = false) String cnpj) {
+        ResponseEntity<Object> notFoundException = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Company not found");
+        if (id != null) {
+            CompanyModel company = service.findById(id);
+            return ResponseEntity.ok(company);
+        }
+
+        if (cnpj != null) {
+            Optional<CompanyModel> company = service.findByCnpj(cnpj);
+            if (company != null) {
+                return ResponseEntity.ok(company);
+            } else {
+                return notFoundException;
+            }
+        }
+
+        return notFoundException;
     }
 
     @PutMapping("/{id}")
