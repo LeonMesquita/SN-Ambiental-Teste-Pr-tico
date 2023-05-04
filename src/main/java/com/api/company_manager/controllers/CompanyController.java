@@ -1,7 +1,6 @@
 package com.api.company_manager.controllers;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.api.company_manager.dtos.CompanyDto;
 import com.api.company_manager.models.CompanyModel;
-import com.api.company_manager.services.CompanyService;
-
+import com.api.company_manager.services.CompanyService; 
 import jakarta.validation.Valid;
 
 @RestController
@@ -42,9 +40,18 @@ public class CompanyController {
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Object> getCompanyById(@PathVariable(value = "id") Integer id) {
         CompanyModel company = service.findById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(company);
+    }
+
+    @GetMapping("/cnpj/{cnpj}")
+    public ResponseEntity<Object> getCompanyByCnpj(@PathVariable(value = "cnpj") String cnpj) {
+        Optional<CompanyModel> company = service.findByCnpj(cnpj);
+        if (!company.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Company not found");
+        }
         return ResponseEntity.status(HttpStatus.OK).body(company);
     }
 
